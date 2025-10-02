@@ -85,20 +85,6 @@
             .charts-container { grid-template-columns: 1fr; }
             .chart-box { height: 250px; }
         }
-
-        @media print {
-    /* 로딩 스피너 숨기기 */
-    *::-webkit-loading-spinner {
-        display: none !important;
-    }
-    
-    /* 모든 애니메이션 중지 */
-    *, *::before, *::after {
-        animation: none !important;
-        transition: none !important;
-    }
-}
-       
     </style>
 </head>
 <body>
@@ -774,7 +760,9 @@
         loadData();
         loadChartData();
         
-    
+        setInterval(() => {
+            if (document.visibilityState === 'visible') loadData();
+        }, 5000);
     </script>
 </body>
 </html>
