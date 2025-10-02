@@ -123,7 +123,7 @@
         
         <div class="charts-container">
             <div class="chart-box">
-                <div class="chart-title">총회원수 추이</div>
+                <div class="chart-title">이회원수 추이</div>
                 <canvas id="totalMembersChart" height="200"></canvas>
             </div>
             <div class="chart-box">
@@ -384,11 +384,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>
     <script>
-        const API_URL = 'https://script.google.com/macros/s/AKfycbygCK1NECc8Z1xIaIzLiCWtP3oTC3xYCrT5y3S5M30-aLmnQng6nlBD7WZ3jOBEpfbq/exec';
+        const API_URL = 'https://script.google.com/macros/s/AKfycbywywMvS4vOLanqa3k7uoh4BO0ClxU8ncVoXzorFlbkVAovqyNUfPiKTYC9yPVeAcif/exec';
         
         if (typeof Chart !== 'undefined' && typeof ChartDataLabels !== 'undefined') {
             Chart.register(ChartDataLabels);
         }
+        
+        // 캐시 객체
+        const dataCache = new Map();
+        const CACHE_DURATION = 30000; // 30초
         
         function extractNum(str) {
             const m = String(str).match(/\d+/g);
@@ -405,6 +409,20 @@
             if (rate >= 85) return '목표근접';
             if (rate >= 70) return '노력필요';
             return '집중필요';
+        }
+        
+        // 캐시에서 데이터 가져오기
+        function getFromCache(key) {
+            const cached = dataCache.get(key);
+            if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
+                return cached.data;
+            }
+            return null;
+        }
+        
+        // 캐시에 데이터 저장
+        function setCache(key, data) {
+            dataCache.set(key, { data, timestamp: Date.now() });
         }
         
         const month = document.getElementById('targetMonth');
@@ -465,13 +483,43 @@
             lastMonth.textContent = prevYM.split('-')[1].replace(/^0/, '');
             
             try {
-                const r1 = await fetch(API_URL + '?type=getCurrentMembers&ym=' + prevYM);
-                const d1 = await r1.json();
-                if (d1.ok) currMembers.textContent = formatComma(d1.cumulative || 0);
+                // 캐시 확인
+                const cacheKey1 = `members_${prevYM}`;
+                const cacheKey2 = `actual_${prevYM}`;
                 
-                const r2 = await fetch(API_URL + '?type=get&ym=' + prevYM);
-                const d2 = await r2.json();
-                if (d2.ok) {
+                let d1 = getFromCache(cacheKey1);
+                let d2 = getFromCache(cacheKey2);
+                
+                // 캐시에 없는 것만 병렬로 호출
+                const promises = [];
+                if (!d1) {
+                    promises.push(
+                        fetch(API_URL + '?type=getCurrentMembers&ym=' + prevYM)
+                            .then(r => r.json())
+                            .then(data => {
+                                d1 = data;
+                                setCache(cacheKey1, data);
+                            })
+                    );
+                }
+                if (!d2) {
+                    promises.push(
+                        fetch(API_URL + '?type=get&ym=' + prevYM)
+                            .then(r => r.json())
+                            .then(data => {
+                                d2 = data;
+                                setCache(cacheKey2, data);
+                            })
+                    );
+                }
+                
+                if (promises.length > 0) {
+                    await Promise.all(promises);
+                }
+                
+                if (d1 && d1.ok) currMembers.textContent = formatComma(d1.cumulative || 0);
+                
+                if (d2 && d2.ok) {
                     const actual = d2.actual || 0;
                     lastActual.value = actual + '명';
                     const target = extractNum(document.getElementById('lastMonthTarget1').value);
@@ -485,10 +533,11 @@
                     }
                 }
                 
-                await fetch(API_URL + '?type=ensureMonth', {
+                // ensureMonth는 백그라운드에서 실행
+                fetch(API_URL + '?type=ensureMonth', {
                     method: 'POST',
                     body: JSON.stringify({ ym: prevYM })
-                });
+                }).catch(() => {});
             } catch (err) {
                 console.error('데이터 로드 실패:', err);
             }
@@ -552,26 +601,34 @@
                     startY--;
                 }
                 
-                const months = [];
-                const totals = [];
-                const news = [];
-                
                 let currentY = startY;
                 let currentM = startM;
                 
-                const promises = [];
                 const monthLabels = [];
+                const fetchPromises = [];
                 
+                // 모든 API 호출을 한번에 준비
                 while (currentY < endY || (currentY === endY && currentM <= endM)) {
                     const targetYM = currentY + '-' + (currentM < 10 ? '0' + currentM : currentM);
                     monthLabels.push({ ym: targetYM, label: currentM + '월' });
                     
-                    promises.push(
-                        Promise.all([
-                            fetch(API_URL + '?type=getCurrentMembers&ym=' + targetYM).then(r => r.json()),
-                            fetch(API_URL + '?type=get&ym=' + targetYM).then(r => r.json())
-                        ])
-                    );
+                    const cacheKey = `chart_${targetYM}`;
+                    let cached = getFromCache(cacheKey);
+                    
+                    if (cached) {
+                        fetchPromises.push(Promise.resolve(cached));
+                    } else {
+                        // 병렬 호출
+                        fetchPromises.push(
+                            Promise.all([
+                                fetch(API_URL + '?type=getCurrentMembers&ym=' + targetYM).then(r => r.json()),
+                                fetch(API_URL + '?type=get&ym=' + targetYM).then(r => r.json())
+                            ]).then(result => {
+                                setCache(cacheKey, result);
+                                return result;
+                            }).catch(() => [{ ok: false }, { ok: false }])
+                        );
+                    }
                     
                     currentM++;
                     if (currentM > 12) {
@@ -580,14 +637,18 @@
                     }
                 }
                 
-                const results = await Promise.all(promises);
+                // 모든 API를 동시에 호출
+                const results = await Promise.all(fetchPromises);
+                
+                const months = [];
+                const totals = [];
+                const news = [];
                 
                 results.forEach((result, index) => {
                     const [d1, d2] = result;
                     const total = d1.ok && d1.cumulative ? d1.cumulative : 0;
                     const newMember = d2.ok && d2.actual ? d2.actual : 0;
                     
-                    // 데이터가 하나라도 있으면 추가
                     if (total > 0 || newMember > 0) {
                         months.push(monthLabels[index].label);
                         totals.push(total);
@@ -595,12 +656,7 @@
                     }
                 });
                 
-                if (months.length === 0) {
-                    console.log('표시할 데이터가 없습니다.');
-                    return;
-                }
-                
-                console.log('차트 데이터:', { months, totals, news });
+                if (months.length === 0) return;
                 
                 const totalCtx = document.getElementById('totalMembersChart');
                 if (totalChart) totalChart.destroy();
@@ -635,18 +691,13 @@
                         },
                         plugins: {
                             legend: { display: false },
-                            tooltip: {
-                                enabled: false
-                            },
+                            tooltip: { enabled: false },
                             datalabels: {
                                 display: true,
                                 align: 'top',
                                 anchor: 'end',
                                 color: '#667eea',
-                                font: {
-                                    size: 11,
-                                    weight: 'bold'
-                                },
+                                font: { size: 11, weight: 'bold' },
                                 formatter: function(value) {
                                     return value.toLocaleString() + '명';
                                 }
@@ -654,28 +705,16 @@
                         },
                         scales: {
                             x: {
-                                grid: {
-                                    display: true,
-                                    color: 'rgba(0, 0, 0, 0.05)',
-                                    drawBorder: false
-                                },
-                                ticks: {
-                                    font: { size: 12 }
-                                }
+                                grid: { display: true, color: 'rgba(0, 0, 0, 0.05)', drawBorder: false },
+                                ticks: { font: { size: 12 } }
                             },
                             y: {
                                 beginAtZero: true,
-                                grid: {
-                                    display: true,
-                                    color: 'rgba(0, 0, 0, 0.05)',
-                                    drawBorder: false
-                                },
+                                grid: { display: true, color: 'rgba(0, 0, 0, 0.05)', drawBorder: false },
                                 ticks: {
                                     font: { size: 12 },
                                     stepSize: 500,
-                                    callback: function(value) {
-                                        return value.toLocaleString();
-                                    }
+                                    callback: function(value) { return value.toLocaleString(); }
                                 }
                             }
                         }
@@ -713,40 +752,20 @@
                     options: {
                         responsive: true,
                         maintainAspectRatio: false,
-                        interaction: {
-                            intersect: false,
-                            mode: 'index'
-                        },
-                        plugins: {
-                            legend: { display: false },
-                            tooltip: {
-                                enabled: false
-                            }
-                        },
+                        interaction: { intersect: false, mode: 'index' },
+                        plugins: { legend: { display: false }, tooltip: { enabled: false } },
                         scales: {
                             x: {
-                                grid: {
-                                    display: true,
-                                    color: 'rgba(0, 0, 0, 0.05)',
-                                    drawBorder: false
-                                },
-                                ticks: {
-                                    font: { size: 12 }
-                                }
+                                grid: { display: true, color: 'rgba(0, 0, 0, 0.05)', drawBorder: false },
+                                ticks: { font: { size: 12 } }
                             },
                             y: {
                                 beginAtZero: true,
-                                grid: {
-                                    display: true,
-                                    color: 'rgba(0, 0, 0, 0.05)',
-                                    drawBorder: false
-                                },
+                                grid: { display: true, color: 'rgba(0, 0, 0, 0.05)', drawBorder: false },
                                 ticks: {
                                     font: { size: 12 },
                                     stepSize: 100,
-                                    callback: function(value) {
-                                        return value;
-                                    }
+                                    callback: function(value) { return value; }
                                 }
                             }
                         }
@@ -762,7 +781,179 @@
         
         setInterval(() => {
             if (document.visibilityState === 'visible') loadData();
-        }, 5000);
+        }, 60000);
+    </script>
+</body>
+</html>3,
+                        pointHoverBackgroundColor: '#667eea',
+                        pointHoverBorderColor: '#fff',
+                        pointHoverBorderWidth: 3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        intersect: false,
+                        mode: 'index'
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            enabled: false
+                        },
+                        datalabels: {
+                            display: true,
+                            align: 'top',
+                            anchor: 'end',
+                            color: '#667eea',
+                            font: {
+                                size: 11,
+                                weight: 'bold'
+                            },
+                            formatter: function(value) {
+                                return value.toLocaleString() + '명';
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                display: true,
+                                color: 'rgba(0, 0, 0, 0.05)',
+                                drawBorder: false
+                            },
+                            ticks: {
+                                font: { size: 12 }
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                display: true,
+                                color: 'rgba(0, 0, 0, 0.05)',
+                                drawBorder: false
+                            },
+                            ticks: {
+                                font: { size: 12 },
+                                stepSize: 500,
+                                callback: function(value) {
+                                    return value.toLocaleString();
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            const newCtx = document.getElementById('newMembersChart');
+            if (newChart) newChart.destroy();
+            
+            newChart = new Chart(newCtx, {
+                type: 'bar',
+                data: {
+                    labels: months,
+                    datasets: [{
+                        label: '신규회원',
+                        data: news,
+                        backgroundColor: [
+                            'rgba(255, 182, 193, 0.7)',
+                            'rgba(173, 216, 230, 0.7)',
+                            'rgba(221, 160, 221, 0.7)',
+                            'rgba(255, 218, 185, 0.7)',
+                            'rgba(176, 224, 230, 0.7)',
+                            'rgba(255, 250, 205, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 182, 193, 1)',
+                            'rgba(173, 216, 230, 1)',
+                            'rgba(221, 160, 221, 1)',
+                            'rgba(255, 218, 185, 1)',
+                            'rgba(176, 224, 230, 1)',
+                            'rgba(255, 250, 205, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        intersect: false,
+                        mode: 'index'
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            enabled: false
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                display: true,
+                                color: 'rgba(0, 0, 0, 0.05)',
+                                drawBorder: false
+                            },
+                            ticks: {
+                                font: { size: 12 }
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                display: true,
+                                color: 'rgba(0, 0, 0, 0.05)',
+                                drawBorder: false
+                            },
+                            ticks: {
+                                font: { size: 12 },
+                                stepSize: 100,
+                                callback: function(value) {
+                                    return value;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        month.addEventListener('change', async () => {
+            // 데이터 로드와 차트 로드를 병렬로 실행
+            await Promise.all([
+                loadData(),
+                loadChartData()
+            ]);
+        });
+        
+        // 초기 월 설정
+        function setInitialMonth() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const monthNum = today.getMonth() + 1;
+            const monthStr = year + '-' + (monthNum < 10 ? '0' + monthNum : monthNum);
+            month.value = monthStr;
+        }
+        
+        // 초기 로드
+        setInitialMonth();
+        
+        // 초기 로드 시 순차적으로 실행 (디버깅을 위해)
+        (async function init() {
+            console.log('초기 로드 시작...');
+            await loadData();
+            console.log('데이터 로드 완료, 차트 로드 시작...');
+            await loadChartData();
+            console.log('차트 로드 완료');
+        })();
+        
+        // 자동 새로고침 간격을 60초로 늘림 (캐시를 활용하므로)
+        setInterval(() => {
+            if (document.visibilityState === 'visible') {
+                loadData();
+            }
+        }, 60000);
     </script>
 </body>
 </html>
