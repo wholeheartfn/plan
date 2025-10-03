@@ -695,12 +695,12 @@
             lastMonth.textContent = prevYM.split('-')[1].replace(/^0/, '');
             
             try {
-                const cacheKey1 = `members_${ym}`;
+                const cacheKey1 = `members_${prevYM}`;
                 
                 let d1 = getFromCache(cacheKey1);
                 
                 if (!d1) {
-                    const response = await fetch(API_URL + '?type=getCurrentMembers&ym=' + ym);
+                    const response = await fetch(API_URL + '?type=getCurrentMembers&ym=' + prevYM);
                     d1 = await response.json();
                     setCache(cacheKey1, d1);
                 }
