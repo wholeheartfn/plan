@@ -10,14 +10,13 @@
         .container { max-width: 900px; margin: 0 auto; background: white; padding: 25px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border-radius: 8px; }
         .header { text-align: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 3px solid #4a90e2; }
         .header h1 { color: #2c3e50; font-size: 24px; margin-bottom: 8px; }
-        .period { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding: 12px; background: linear-gradient(135deg, #e8f4f8 0%, #f0f7fb 100%); border-radius: 8px; flex-wrap: wrap; gap: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .period { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding: 12px; background: linear-gradient(135deg, #e8f4f8 0%, #f0f7fb 100%); border-radius: 8px; flex-wrap: wrap; gap: 10px; }
         .period-item { display: flex; align-items: center; gap: 10px; }
-        .period-label { font-weight: bold; color: #34495e; font-size: 14px; }
-        .month-display { width: 180px; padding: 8px; font-size: 20px; font-weight: bold; cursor: pointer; }
-        .month-input { width: 140px; padding: 8px; font-size: 14px; border: 2px solid #ddd; border-radius: 5px; font-family: inherit; transition: border-color 0.3s; }
-        .month-input:focus { outline: none; border-color: #4a90e2; }
+        .period-label { font-weight: bold; color: #34495e; font-size: 16px; }
+        .month-input { width: 200px; padding: 14px; font-size: 20px; font-weight: bold; border: 3px solid #4a90e2; border-radius: 8px; font-family: inherit; transition: all 0.3s; background: white; color: #2c3e50; }
+        .month-input:focus { outline: none; border-color: #2980b9; box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1); transform: scale(1.02); }
         .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
-        .stat-card { background: linear-gradient(135deg, #9ba8e0 0%, #a88ec0 100%); padding: 15px; border-radius: 8px; color: white; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: transform 0.2s; }
+        .stat-card { background: linear-gradient(135deg, #9ba8e0 0%, #a88ec0 100%); padding: 15px; border-radius: 8px; color: white; text-align: center; transition: transform 0.2s; }
         .stat-card:hover { transform: translateY(-2px); }
         .stat-card.green { background: linear-gradient(135deg, #6bc9b5 0%, #8ee6c8 100%); }
         .stat-card.orange { background: linear-gradient(135deg, #f0a3f5 0%, #f594ab 100%); }
@@ -26,68 +25,58 @@
         .stat-value { font-size: 26px; font-weight: bold; }
         .stat-unit { font-size: 14px; margin-left: 3px; }
         .charts-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
-        .chart-box { background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); height: 220px; border: 1px solid #e8e8e8; }
+        .chart-box { background: #fafafa; padding: 15px; border-radius: 8px; }
         .chart-title { font-size: 14px; font-weight: bold; color: #2c3e50; margin-bottom: 10px; text-align: center; }
-        .section { margin-bottom: 25px; overflow-x: auto; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
-        .section::-webkit-scrollbar { height: 8px; }
-        .section::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
-        .section::-webkit-scrollbar-thumb { background: #888; border-radius: 4px; }
-        .section::-webkit-scrollbar-thumb:hover { background: #555; }
+        .chart-wrapper { position: relative; width: 100%; }
+        .section { margin-bottom: 25px; overflow-x: auto; }
         .section-title { background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%); color: white; padding: 12px 18px; font-size: 16px; font-weight: bold; border-radius: 8px 8px 0 0; }
         table { width: 100%; min-width: 800px; border-collapse: collapse; margin-bottom: 0; }
         .large-table { min-width: 700px; }
         th { background: #ecf0f1; padding: 12px 10px; text-align: center; font-weight: bold; border: 1px solid #d5d9dc; color: #2c3e50; font-size: 14px; white-space: nowrap; }
         td { padding: 12px 10px; border: 1px solid #e0e0e0; text-align: center; font-size: 14px; background: white; word-wrap: break-word; }
         td:first-child { text-align: left; font-weight: 500; }
+        td:nth-child(2) { font-size: 12px; }
         .input-cell { background: #fffef5; }
-        input, textarea, select { width: 100%; padding: 7px; border: 1px solid #ddd; border-radius: 4px; font-family: inherit; font-size: 13px; transition: border-color 0.2s; word-wrap: break-word; }
+        input, textarea, select { width: 100%; padding: 7px; border: 1px solid #ddd; border-radius: 4px; font-family: inherit; font-size: 13px; transition: border-color 0.2s; }
         input:focus, textarea:focus, select:focus { outline: none; border-color: #4a90e2; }
         .large-table th { font-size: 15px; padding: 13px 10px; }
         .large-table td { font-size: 15px; padding: 13px 10px; }
+        .large-table td:nth-child(2) input { font-size: 12px; }
         .large-table input, .large-table textarea, .large-table select { font-size: 14px; padding: 8px; }
         textarea { resize: vertical; min-height: 50px; }
         .highlight { background: #fff0f0; font-weight: bold; }
         .category-header { background: linear-gradient(135deg, #3498db 0%, #2980b9 100%) !important; color: white !important; font-weight: bold; }
-        .notes-section { margin-top: 15px; padding: 15px; background: #f8f9fa; border-left: 4px solid #4a90e2; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .notes-section { margin-top: 15px; padding: 15px; background: #f8f9fa; border-left: 4px solid #4a90e2; border-radius: 4px; }
         .notes-title { font-weight: bold; margin-bottom: 8px; color: #2c3e50; font-size: 14px; }
         .signature { margin-top: 25px; padding-top: 15px; text-align: right; color: #7f8c8d; font-size: 13px; border-top: 2px solid #ecf0f1; }
-        @media print {
-            body { padding: 0; background: white; }
-            .container { box-shadow: none; padding: 16px 20px; max-width: 100%; margin: 0; }
-            input, textarea, select { border: none; background: transparent; padding: 2px; }
-            .section { page-break-inside: avoid; box-shadow: none; margin-bottom: 12px; }
-            .stat-card:hover { transform: none; }
-            .stats-grid { margin-bottom: 18px; gap: 9px; }
-            .stat-card { padding: 11px; }
-            .stat-label { font-size: 11px; margin-bottom: 6px; }
-            .stat-value { font-size: 22px; }
-            .stat-unit { font-size: 12px; }
-            .charts-container { margin-bottom: 26px; gap: 11px; page-break-after: always; }
-            .chart-box { height: 178px; padding: 11px; }
-            .chart-title { font-size: 13px; margin-bottom: 9px; }
-            table { font-size: 10.5px; margin-bottom: 0; }
-            th { padding: 6px 4px; font-size: 11px; }
-            td { padding: 6px 4px; font-size: 10.5px; }
-            .large-table th { font-size: 12px; padding: 7px 4px; }
-            .large-table td { font-size: 11px; padding: 7px 4px; }
-            .large-table input { font-size: 10.5px; padding: 2px; }
-            .section-title { padding: 8px 13px; font-size: 13px; }
-            .header { margin-bottom: 17px; padding-bottom: 13px; }
-            .header h1 { font-size: 20px; margin-bottom: 7px; }
-            .period { padding: 9px; margin-bottom: 15px; }
-            .period-label { font-size: 12.5px; }
-            .notes-section { padding: 9px; margin-top: 9px; }
-            .notes-title { font-size: 12px; }
-            .signature { margin-top: 12px; padding-top: 9px; font-size: 11px; }
-        }
+        .save-indicator { position: fixed; top: 20px; right: 20px; padding: 10px 20px; background: #4CAF50; color: white; border-radius: 5px; display: none; z-index: 1000; }
         @media (max-width: 768px) {
-            .stats-grid { grid-template-columns: repeat(2, 1fr); }
             .charts-container { grid-template-columns: 1fr; }
-            .chart-box { height: 250px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media print {
+            body { background: white; padding: 0; }
+            .container { max-width: 100%; box-shadow: none; padding: 15px; }
+            .save-indicator { display: none !important; }
+            .section { page-break-inside: avoid; margin-bottom: 15px; overflow: visible; }
+            .chart-box { page-break-inside: avoid; }
+            .stats-grid { page-break-inside: avoid; }
+            table { page-break-inside: auto; min-width: 100%; }
+            tr { page-break-inside: avoid; page-break-after: auto; }
+            thead { display: table-header-group; }
+            tfoot { display: table-footer-group; }
+            .period { background: white; border: 2px solid #4a90e2; }
+            .stat-card { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+            .section-title { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+            th { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+            .category-header { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+            * { overflow: visible !important; }
+            body, html { overflow: visible !important; }
         }
     </style>
 </head>
 <body>
+    <div class="save-indicator" id="saveIndicator">저장 중...</div>
     <div class="container">
         <div class="header"><h1>우리상조 월간계획표</h1></div>
         
@@ -105,30 +94,34 @@
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-label">현재 회원수</div>
-                <div class="stat-value"><span id="currentMembersDisplay">1,600</span><span class="stat-unit">명</span></div>
+                <div class="stat-value"><span id="currentMembersDisplay">0</span><span class="stat-unit">명</span></div>
             </div>
             <div class="stat-card green">
                 <div class="stat-label">월 신규회원 목표</div>
-                <div class="stat-value"><span id="newMembersTarget">50</span><span class="stat-unit">명</span></div>
+                <div class="stat-value"><span id="newMembersTarget">0</span><span class="stat-unit">명</span></div>
             </div>
             <div class="stat-card orange">
                 <div class="stat-label">장례진행 목표</div>
-                <div class="stat-value"><span id="funeralTarget">5</span><span class="stat-unit">건</span></div>
+                <div class="stat-value"><span id="funeralTarget">0</span><span class="stat-unit">건</span></div>
             </div>
             <div class="stat-card blue">
                 <div class="stat-label">상담 목표</div>
-                <div class="stat-value"><span id="counselTarget">15</span><span class="stat-unit">회기</span></div>
+                <div class="stat-value"><span id="counselTarget">0</span><span class="stat-unit">회기</span></div>
             </div>
         </div>
         
         <div class="charts-container">
             <div class="chart-box">
                 <div class="chart-title">총회원수 추이</div>
-                <canvas id="totalMembersChart" height="200"></canvas>
+                <div class="chart-wrapper">
+                    <canvas id="totalMembersChart"></canvas>
+                </div>
             </div>
             <div class="chart-box">
                 <div class="chart-title">신규회원 추이</div>
-                <canvas id="newMembersChart" height="200"></canvas>
+                <div class="chart-wrapper">
+                    <canvas id="newMembersChart"></canvas>
+                </div>
             </div>
         </div>
         
@@ -146,32 +139,32 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="input-cell"><input type="text" value="1. 신규회원 확보" style="font-weight: 500;"></td>
-                        <td class="input-cell"><input id="lastMonthTarget1" type="text" value="50명"></td>
-                        <td class="input-cell"><input id="lastMonthActual1" type="text" placeholder="실적 입력"></td>
+                        <td class="input-cell">1. 신규회원 확보</td>
+                        <td class="input-cell"><input id="lastMonthTarget1" type="text" value="50명" data-save-monthly="true"></td>
+                        <td class="input-cell"><input id="lastMonthActual1" type="text" placeholder="실적 입력" readonly style="background: #f0f0f0;"></td>
                         <td class="input-cell"><input id="achievementRate1" type="text" value="-" readonly style="text-align: center;"></td>
-                        <td class="input-cell"><input id="evaluation1" type="text" placeholder="평가"></td>
+                        <td class="input-cell"><input id="evaluation1" type="text" placeholder="평가" data-save-monthly="true"></td>
                     </tr>
                     <tr>
-                        <td class="input-cell"><input type="text" value="2. 장례진행 서비스" style="font-weight: 500;"></td>
-                        <td class="input-cell"><input id="lastMonthTarget2" type="text" value="5건"></td>
-                        <td class="input-cell"><input id="lastMonthActual2" type="text" placeholder="실적 입력"></td>
+                        <td class="input-cell">2. 장례진행 서비스</td>
+                        <td class="input-cell"><input id="lastMonthTarget2" type="text" value="5건" data-save-monthly="true"></td>
+                        <td class="input-cell"><input id="lastMonthActual2" type="text" placeholder="실적 입력" data-save-monthly="true"></td>
                         <td class="input-cell"><input id="achievementRate2" type="text" value="-" readonly style="text-align: center;"></td>
-                        <td class="input-cell"><input id="evaluation2" type="text" placeholder="평가"></td>
+                        <td class="input-cell"><input id="evaluation2" type="text" placeholder="평가" data-save-monthly="true"></td>
                     </tr>
                     <tr>
-                        <td class="input-cell"><input type="text" value="3. 참정성 마음케어 상담" style="font-weight: 500;"></td>
-                        <td class="input-cell"><input id="lastMonthTarget3" type="text" value="15회기"></td>
-                        <td class="input-cell"><input id="lastMonthActual3" type="text" placeholder="실적 입력"></td>
+                        <td class="input-cell">3. 참정성 마음케어 상담</td>
+                        <td class="input-cell"><input id="lastMonthTarget3" type="text" value="15회기" data-save-monthly="true"></td>
+                        <td class="input-cell"><input id="lastMonthActual3" type="text" placeholder="실적 입력" data-save-monthly="true"></td>
                         <td class="input-cell"><input id="achievementRate3" type="text" value="-" readonly style="text-align: center;"></td>
-                        <td class="input-cell"><input id="evaluation3" type="text" placeholder="평가"></td>
+                        <td class="input-cell"><input id="evaluation3" type="text" placeholder="평가" data-save-monthly="true"></td>
                     </tr>
                     <tr>
-                        <td class="input-cell"><input type="text" placeholder="4. 추가 목표" style="font-weight: 500;"></td>
-                        <td class="input-cell"><input id="lastMonthTarget4" type="text" placeholder="목표"></td>
-                        <td class="input-cell"><input id="lastMonthActual4" type="text" placeholder="실적"></td>
+                        <td class="input-cell"><input id="lastMonthGoal4" type="text" placeholder="4. 추가 목표" style="font-weight: 500;" data-save-monthly="true"></td>
+                        <td class="input-cell"><input id="lastMonthTarget4" type="text" placeholder="목표" data-save-monthly="true"></td>
+                        <td class="input-cell"><input id="lastMonthActual4" type="text" placeholder="실적" data-save-monthly="true"></td>
                         <td class="input-cell"><input id="achievementRate4" type="text" value="-" readonly style="text-align: center;"></td>
-                        <td class="input-cell"><input id="evaluation4" type="text" placeholder="평가"></td>
+                        <td class="input-cell"><input id="evaluation4" type="text" placeholder="평가" data-save-monthly="true"></td>
                     </tr>
                 </tbody>
             </table>
@@ -192,38 +185,38 @@
                 <tbody>
                     <tr class="highlight">
                         <td style="text-align: center;">1</td>
-                        <td class="input-cell"><input type="text" value="신규회원"></td>
-                        <td class="input-cell"><input type="text" value="150명" data-sync="newMembers"></td>
-                        <td class="input-cell"><input type="text" placeholder="담당자"></td>
-                        <td class="input-cell"><input type="date"></td>
+                        <td class="input-cell"><input id="currentGoal1" type="text" value="신규회원" data-save="true"></td>
+                        <td class="input-cell"><input id="currentTarget1" type="text" value="150명" data-sync="newMembers" data-save="true"></td>
+                        <td class="input-cell"><input id="currentManager1" type="text" placeholder="담당자" data-save="true"></td>
+                        <td class="input-cell"><input id="currentDate1" type="date" data-save="true"></td>
                     </tr>
                     <tr class="highlight">
                         <td style="text-align: center;">2</td>
-                        <td class="input-cell"><input type="text" value="장례진행"></td>
-                        <td class="input-cell"><input type="text" value="8건" data-sync="funeral"></td>
-                        <td class="input-cell"><input type="text" placeholder="담당자"></td>
-                        <td class="input-cell"><input type="date"></td>
+                        <td class="input-cell"><input id="currentGoal2" type="text" value="장례진행" data-save="true"></td>
+                        <td class="input-cell"><input id="currentTarget2" type="text" value="8건" data-sync="funeral" data-save="true"></td>
+                        <td class="input-cell"><input id="currentManager2" type="text" placeholder="담당자" data-save="true"></td>
+                        <td class="input-cell"><input id="currentDate2" type="date" data-save="true"></td>
                     </tr>
                     <tr class="highlight">
                         <td style="text-align: center;">3</td>
-                        <td class="input-cell"><input type="text" value="참정성 마음케어 상담"></td>
-                        <td class="input-cell"><input type="text" value="24회기" data-sync="counsel"></td>
-                        <td class="input-cell"><input type="text" placeholder="담당자"></td>
-                        <td class="input-cell"><input type="date"></td>
+                        <td class="input-cell"><input id="currentGoal3" type="text" value="참정성 마음케어 상담" data-save="true"></td>
+                        <td class="input-cell"><input id="currentTarget3" type="text" value="24회기" data-sync="counsel" data-save="true"></td>
+                        <td class="input-cell"><input id="currentManager3" type="text" placeholder="담당자" data-save="true"></td>
+                        <td class="input-cell"><input id="currentDate3" type="date" data-save="true"></td>
                     </tr>
                     <tr>
                         <td style="text-align: center;">4</td>
-                        <td class="input-cell"><input type="text" value="온라인홍보 - 컨텐츠 제작"></td>
-                        <td class="input-cell"><input type="text" value="주 2회"></td>
-                        <td class="input-cell"><input type="text" placeholder="담당자"></td>
-                        <td class="input-cell"><input type="date"></td>
+                        <td class="input-cell"><input id="currentGoal4" type="text" value="온라인홍보 - 컨텐츠 제작" data-save="true"></td>
+                        <td class="input-cell"><input id="currentTarget4" type="text" value="주 2회" data-save="true"></td>
+                        <td class="input-cell"><input id="currentManager4" type="text" placeholder="담당자" data-save="true"></td>
+                        <td class="input-cell"><input id="currentDate4" type="date" data-save="true"></td>
                     </tr>
                     <tr>
                         <td style="text-align: center;">5</td>
-                        <td class="input-cell"><input type="text" placeholder="추가 목표"></td>
-                        <td class="input-cell"><input type="text" placeholder="목표치"></td>
-                        <td class="input-cell"><input type="text" placeholder="담당자"></td>
-                        <td class="input-cell"><input type="date"></td>
+                        <td class="input-cell"><input id="currentGoal5" type="text" placeholder="추가 목표" data-save="true"></td>
+                        <td class="input-cell"><input id="currentTarget5" type="text" placeholder="목표치" data-save="true"></td>
+                        <td class="input-cell"><input id="currentManager5" type="text" placeholder="담당자" data-save="true"></td>
+                        <td class="input-cell"><input id="currentDate5" type="date" data-save="true"></td>
                     </tr>
                 </tbody>
             </table>
@@ -242,82 +235,82 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="input-cell"><input type="text" value="회원 관리" style="font-weight: bold;"></td>
-                        <td class="input-cell"><input type="text" value="신규회원 상담 및 가입 & 기존회원 만족도"></td>
-                        <td class="input-cell"><input type="text" value="매일"></td>
-                        <td class="input-cell"><input type="text"></td>
+                        <td class="input-cell"><input id="workArea0" type="text" value="회원 관리" style="font-weight: bold;" data-save="true"></td>
+                        <td class="input-cell"><input id="workDetail0" type="text" value="신규회원 상담 및 가입 & 기존회원 만족도" data-save="true"></td>
+                        <td class="input-cell"><input id="workSchedule0" type="text" value="매일" data-save="true"></td>
+                        <td class="input-cell"><input id="workNote0" type="text" data-save="true"></td>
                     </tr>
                     <tr>
-                        <td class="input-cell"><input type="text" value="장례서비스" style="font-weight: bold;"></td>
-                        <td class="input-cell"><input type="text" value="장례 진행 및 사후관리"></td>
-                        <td class="input-cell"><input type="text" value="장례진행시"></td>
-                        <td class="input-cell"><input type="text"></td>
+                        <td class="input-cell"><input id="workArea1" type="text" value="장례서비스" style="font-weight: bold;" data-save="true"></td>
+                        <td class="input-cell"><input id="workDetail1" type="text" value="장례 진행 및 사후관리" data-save="true"></td>
+                        <td class="input-cell"><input id="workSchedule1" type="text" value="장례진행시" data-save="true"></td>
+                        <td class="input-cell"><input id="workNote1" type="text" data-save="true"></td>
                     </tr>
                     <tr>
-                        <td class="input-cell"><input type="text" value="마음케어" style="font-weight: bold;"></td>
-                        <td class="input-cell"><input type="text" value="마음케어 상담사 교육"></td>
-                        <td class="input-cell"><input type="text" value="주 3회"></td>
-                        <td class="input-cell"><input type="text"></td>
+                        <td class="input-cell"><input id="workArea2" type="text" value="마음케어" style="font-weight: bold;" data-save="true"></td>
+                        <td class="input-cell"><input id="workDetail2" type="text" value="마음케어 상담사 교육" data-save="true"></td>
+                        <td class="input-cell"><input id="workSchedule2" type="text" value="주 3회" data-save="true"></td>
+                        <td class="input-cell"><input id="workNote2" type="text" data-save="true"></td>
                     </tr>
                     <tr>
-                        <td class="input-cell"><input type="text" value="마음케어" style="font-weight: bold;"></td>
-                        <td class="input-cell"><input type="text" value="유가족 마음케어 상담"></td>
-                        <td class="input-cell"><input type="text" value="상담 발생시"></td>
-                        <td class="input-cell"><input type="text"></td>
+                        <td class="input-cell"><input id="workArea3" type="text" value="마음케어" style="font-weight: bold;" data-save="true"></td>
+                        <td class="input-cell"><input id="workDetail3" type="text" value="유가족 마음케어 상담" data-save="true"></td>
+                        <td class="input-cell"><input id="workSchedule3" type="text" value="상담 발생시" data-save="true"></td>
+                        <td class="input-cell"><input id="workNote3" type="text" data-save="true"></td>
                     </tr>
                     <tr>
-                        <td class="input-cell"><input type="text" value="마음케어" style="font-weight: bold;"></td>
-                        <td class="input-cell"><input type="text" value="마음케어 프로그램 개발 및 업데이트"></td>
-                        <td class="input-cell"><input type="text" value="정기"></td>
-                        <td class="input-cell"><input type="text"></td>
+                        <td class="input-cell"><input id="workArea4" type="text" value="마음케어" style="font-weight: bold;" data-save="true"></td>
+                        <td class="input-cell"><input id="workDetail4" type="text" value="마음케어 프로그램 개발 및 업데이트" data-save="true"></td>
+                        <td class="input-cell"><input id="workSchedule4" type="text" value="정기" data-save="true"></td>
+                        <td class="input-cell"><input id="workNote4" type="text" data-save="true"></td>
                     </tr>
                     <tr>
-                        <td class="input-cell"><input type="text" value="온라인홍보" style="font-weight: bold;"></td>
-                        <td class="input-cell"><input type="text" value="컨텐츠 제작 - 홍보 영상 인터뷰 및 제작"></td>
-                        <td class="input-cell"><input type="text" value="주 2회"></td>
-                        <td class="input-cell"><input type="text" value="플랫폼팀 이항우 협업"></td>
+                        <td class="input-cell"><input id="workArea5" type="text" value="온라인홍보" style="font-weight: bold;" data-save="true"></td>
+                        <td class="input-cell"><input id="workDetail5" type="text" value="컨텐츠 제작 - 홍보 영상 인터뷰 및 제작" data-save="true"></td>
+                        <td class="input-cell"><input id="workSchedule5" type="text" value="주 2회" data-save="true"></td>
+                        <td class="input-cell"><input id="workNote5" type="text" value="플랫폼팀 이항우 협업" data-save="true"></td>
                     </tr>
                     <tr>
-                        <td class="input-cell"><input type="text" value="온라인홍보" style="font-weight: bold;"></td>
-                        <td class="input-cell"><input type="text" value="인스타, 유튜브, 블로그, 틱톡 컨텐츠 제작"></td>
-                        <td class="input-cell"><input type="text" value="주 2회"></td>
-                        <td class="input-cell"><input type="text"></td>
+                        <td class="input-cell"><input id="workArea6" type="text" value="온라인홍보" style="font-weight: bold;" data-save="true"></td>
+                        <td class="input-cell"><input id="workDetail6" type="text" value="인스타, 유튜브, 블로그, 틱톡 컨텐츠 제작" data-save="true"></td>
+                        <td class="input-cell"><input id="workSchedule6" type="text" value="주 2회" data-save="true"></td>
+                        <td class="input-cell"><input id="workNote6" type="text" data-save="true"></td>
                     </tr>
                     <tr>
-                        <td class="input-cell"><input type="text" value="오프라인 홍보" style="font-weight: bold;"></td>
-                        <td class="input-cell"><input type="text" value="기존회원 안내 메세지 발송"></td>
-                        <td class="input-cell"><input type="text" value="300명"></td>
-                        <td class="input-cell"><input type="text" value="현재 마음수련회원"></td>
+                        <td class="input-cell"><input id="workArea7" type="text" value="오프라인 홍보" style="font-weight: bold;" data-save="true"></td>
+                        <td class="input-cell"><input id="workDetail7" type="text" value="기존회원 안내 메세지 발송" data-save="true"></td>
+                        <td class="input-cell"><input id="workSchedule7" type="text" value="300명" data-save="true"></td>
+                        <td class="input-cell"><input id="workNote7" type="text" value="현재 마음수련회원" data-save="true"></td>
                     </tr>
                     <tr>
-                        <td class="input-cell"><input type="text" value="오프라인 홍보" style="font-weight: bold;"></td>
-                        <td class="input-cell"><input type="text" value="지역 신규회원 대상 안내 문자 보내기"></td>
-                        <td class="input-cell"><input type="text"></td>
-                        <td class="input-cell"><input type="text" value="지역도움님 & 회장님"></td>
+                        <td class="input-cell"><input id="workArea8" type="text" value="오프라인 홍보" style="font-weight: bold;" data-save="true"></td>
+                        <td class="input-cell"><input id="workDetail8" type="text" value="지역 신규회원 대상 안내 문자 보내기" data-save="true"></td>
+                        <td class="input-cell"><input id="workSchedule8" type="text" data-save="true"></td>
+                        <td class="input-cell"><input id="workNote8" type="text" value="지역도움님 & 회장님" data-save="true"></td>
                     </tr>
                     <tr>
-                        <td class="input-cell"><input type="text" value="오프라인 홍보" style="font-weight: bold;"></td>
-                        <td class="input-cell"><input type="text" value="주말 부스홍보"></td>
-                        <td class="input-cell"><input type="text" value="매주"></td>
-                        <td class="input-cell"><input type="text"></td>
+                        <td class="input-cell"><input id="workArea9" type="text" value="오프라인 홍보" style="font-weight: bold;" data-save="true"></td>
+                        <td class="input-cell"><input id="workDetail9" type="text" value="주말 부스홍보" data-save="true"></td>
+                        <td class="input-cell"><input id="workSchedule9" type="text" value="매주" data-save="true"></td>
+                        <td class="input-cell"><input id="workNote9" type="text" data-save="true"></td>
                     </tr>
                     <tr>
-                        <td class="input-cell"><input type="text" value="장례교육" style="font-weight: bold;"></td>
-                        <td class="input-cell"><input type="text" value="장례교육 자료 정리 및 염습/장례실무 교육"></td>
-                        <td class="input-cell"><input type="text" value="주 1회"></td>
-                        <td class="input-cell"><input type="text" value="지역 장례지도사"></td>
+                        <td class="input-cell"><input id="workArea10" type="text" value="장례교육" style="font-weight: bold;" data-save="true"></td>
+                        <td class="input-cell"><input id="workDetail10" type="text" value="장례교육 자료 정리 및 염습/장례실무 교육" data-save="true"></td>
+                        <td class="input-cell"><input id="workSchedule10" type="text" value="주 1회" data-save="true"></td>
+                        <td class="input-cell"><input id="workNote10" type="text" value="지역 장례지도사" data-save="true"></td>
                     </tr>
                     <tr>
-                        <td class="input-cell"><input type="text" value="장례서비스" style="font-weight: bold;"></td>
-                        <td class="input-cell"><input type="text" value="장례관련 정보 블로그 게시"></td>
-                        <td class="input-cell"><input type="text" value="월 2회"></td>
-                        <td class="input-cell"><input type="text"></td>
+                        <td class="input-cell"><input id="workArea11" type="text" value="장례서비스" style="font-weight: bold;" data-save="true"></td>
+                        <td class="input-cell"><input id="workDetail11" type="text" value="장례관련 정보 블로그 게시" data-save="true"></td>
+                        <td class="input-cell"><input id="workSchedule11" type="text" value="월 2회" data-save="true"></td>
+                        <td class="input-cell"><input id="workNote11" type="text" data-save="true"></td>
                     </tr>
                     <tr>
-                        <td class="input-cell"><input type="text" placeholder="업무 영역 추가" style="font-weight: bold;"></td>
-                        <td class="input-cell"><input type="text" placeholder="세부 내용"></td>
-                        <td class="input-cell"><input type="text" placeholder="일정"></td>
-                        <td class="input-cell"><input type="text" placeholder="비고"></td>
+                        <td class="input-cell"><input id="workArea12" type="text" placeholder="업무 영역 추가" style="font-weight: bold;" data-save="true"></td>
+                        <td class="input-cell"><input id="workDetail12" type="text" placeholder="세부 내용" data-save="true"></td>
+                        <td class="input-cell"><input id="workSchedule12" type="text" placeholder="일정" data-save="true"></td>
+                        <td class="input-cell"><input id="workNote12" type="text" placeholder="비고" data-save="true"></td>
                     </tr>
                 </tbody>
             </table>
@@ -373,7 +366,7 @@
         
         <div class="notes-section">
             <div class="notes-title">특이사항 / 비고</div>
-            <textarea placeholder="이번 달 특별히 주의할 사항이나 참고할 내용을 자유롭게 작성하세요."></textarea>
+            <textarea id="specialNotes" placeholder="이번 달 특별히 주의할 사항이나 참고할 내용을 자유롭게 작성하세요." data-save="true"></textarea>
         </div>
         
         <div class="signature">
@@ -384,15 +377,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>
     <script>
-        const API_URL = 'https://script.google.com/macros/s/AKfycbywywMvS4vOLanqa3k7uoh4BO0ClxU8ncVoXzorFlbkVAovqyNUfPiKTYC9yPVeAcif/exec';
+        const API_URL = 'https://script.google.com/macros/s/AKfycbxvUBsHULKB4MX22Klvq8SG-dPX0dz7VlyY67Qdx-VIfF9smsl4HOj78mXMAsYoXjw/exec';
         
         if (typeof Chart !== 'undefined' && typeof ChartDataLabels !== 'undefined') {
             Chart.register(ChartDataLabels);
         }
         
-        // 캐시 객체
         const dataCache = new Map();
-        const CACHE_DURATION = 30000; // 30초
+        const CACHE_DURATION = 300000;
         
         function extractNum(str) {
             const m = String(str).match(/\d+/g);
@@ -411,7 +403,6 @@
             return '집중필요';
         }
         
-        // 캐시에서 데이터 가져오기
         function getFromCache(key) {
             const cached = dataCache.get(key);
             if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
@@ -420,7 +411,6 @@
             return null;
         }
         
-        // 캐시에 데이터 저장
         function setCache(key, data) {
             dataCache.set(key, { data, timestamp: Date.now() });
         }
@@ -429,11 +419,18 @@
         const currMonth = document.getElementById('currentMonthLabel');
         const lastMonth = document.getElementById('lastMonthLabel');
         const currMembers = document.getElementById('currentMembersDisplay');
-        const lastActual = document.getElementById('lastMonthActual1');
-        const achRate = document.getElementById('achievementRate1');
+        const saveIndicator = document.getElementById('saveIndicator');
         
         let totalChart = null;
         let newChart = null;
+        
+        function setInitialMonth() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const monthNum = today.getMonth() + 1;
+            const monthStr = year + '-' + (monthNum < 10 ? '0' + monthNum : monthNum);
+            month.value = monthStr;
+        }
         
         function calculateAchievementRate(targetId, actualId, rateId, evalId) {
             const targetInput = document.getElementById(targetId);
@@ -473,112 +470,260 @@
             return y + '-' + (m < 10 ? '0' + m : m);
         }
         
-        async function loadData() {
+        let saveTimeout;
+        function autoSaveCommon() {
+            clearTimeout(saveTimeout);
+            saveTimeout = setTimeout(async () => {
+                saveIndicator.style.display = 'block';
+                saveIndicator.textContent = '저장 중...';
+                
+                const data = {};
+                document.querySelectorAll('[data-save="true"]').forEach(elem => {
+                    if (elem.id) {
+                        data[elem.id] = elem.value || '';
+                    }
+                });
+                
+                try {
+                    const response = await fetch(API_URL, {
+                        method: 'POST',
+                        body: JSON.stringify({ 
+                            type: 'saveCommonData', 
+                            data: data 
+                        })
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (result.ok) {
+                        dataCache.delete('commonData');
+                        setCache('commonData', data);
+                        
+                        saveIndicator.textContent = '저장 완료!';
+                        saveIndicator.style.background = '#4CAF50';
+                        setTimeout(() => { saveIndicator.style.display = 'none'; }, 1000);
+                    } else {
+                        throw new Error(result.error || '저장 실패');
+                    }
+                } catch (err) {
+                    console.error('저장 실패:', err);
+                    saveIndicator.textContent = '저장 실패: ' + err.message;
+                    saveIndicator.style.background = '#f44336';
+                    setTimeout(() => { saveIndicator.style.display = 'none'; }, 3000);
+                }
+            }, 1500);
+        }
+        
+        let saveMonthlyTimeout;
+        function autoSaveMonthly() {
+            clearTimeout(saveMonthlyTimeout);
+            saveMonthlyTimeout = setTimeout(async () => {
+                const ym = month.value;
+                if (!ym) return;
+                
+                const prevYM = getPrevYM(ym);
+                
+                saveIndicator.style.display = 'block';
+                saveIndicator.textContent = '월별 데이터 저장 중...';
+                
+                const data = {};
+                document.querySelectorAll('[data-save-monthly="true"]').forEach(elem => {
+                    if (elem.id) {
+                        data[elem.id] = elem.value || '';
+                    }
+                });
+                
+                try {
+                    const response = await fetch(API_URL, {
+                        method: 'POST',
+                        body: JSON.stringify({ 
+                            type: 'saveMonthlyPlan',
+                            ym: prevYM,
+                            data: data 
+                        })
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (result.ok) {
+                        const cacheKey = `monthly_${prevYM}`;
+                        dataCache.delete(cacheKey);
+                        setCache(cacheKey, data);
+                        
+                        saveIndicator.textContent = '저장 완료!';
+                        saveIndicator.style.background = '#4CAF50';
+                        setTimeout(() => { saveIndicator.style.display = 'none'; }, 1000);
+                    } else {
+                        throw new Error(result.error || '저장 실패');
+                    }
+                } catch (err) {
+                    console.error('월별 데이터 저장 실패:', err);
+                    saveIndicator.textContent = '저장 실패: ' + err.message;
+                    saveIndicator.style.background = '#f44336';
+                    setTimeout(() => { saveIndicator.style.display = 'none'; }, 3000);
+                }
+            }, 1500);
+        }
+        
+        document.querySelectorAll('[data-save="true"]').forEach(elem => {
+            elem.addEventListener('input', autoSaveCommon);
+            elem.addEventListener('change', autoSaveCommon);
+        });
+        
+        document.querySelectorAll('[data-save-monthly="true"]').forEach(elem => {
+            elem.addEventListener('input', autoSaveMonthly);
+            elem.addEventListener('change', autoSaveMonthly);
+        });
+        
+        async function loadCommonData() {
+            const cacheKey = 'commonData';
+            let cached = getFromCache(cacheKey);
+            
+            if (cached) {
+                updateCommonUI(cached);
+                return;
+            }
+            
+            try {
+                const response = await fetch(API_URL + '?type=getCommonData');
+                const result = await response.json();
+                
+                if (result.ok && result.data) {
+                    setCache(cacheKey, result.data);
+                    updateCommonUI(result.data);
+                }
+            } catch (err) {
+                console.error('공통 데이터 불러오기 실패:', err);
+            }
+        }
+        
+        function updateCommonUI(data) {
+            Object.keys(data).forEach(key => {
+                const elem = document.getElementById(key);
+                if (elem && data[key] !== undefined && data[key] !== null) {
+                    if (elem.value === '' || elem.value === undefined) {
+                        elem.value = data[key];
+                    }
+                }
+            });
+        }
+        
+        async function loadMonthlyPlan() {
+            const ym = month.value;
+            if (!ym) return;
+            
+            const prevYM = getPrevYM(ym);
+            
+            try {
+                const response = await fetch(API_URL + '?type=getMonthlyPlan&ym=' + prevYM);
+                const result = await response.json();
+                
+                if (result.ok && result.data) {
+                    const data = result.data;
+                    
+                    if (data.lastMonthActual1 !== undefined) {
+                        document.getElementById('lastMonthActual1').value = data.lastMonthActual1;
+                    }
+                    
+                    if (data.lastMonthTarget1 !== undefined) {
+                        document.getElementById('lastMonthTarget1').value = data.lastMonthTarget1;
+                    }
+                    if (data.evaluation1 !== undefined) {
+                        document.getElementById('evaluation1').value = data.evaluation1;
+                    }
+                    
+                    if (data.lastMonthTarget2 !== undefined) {
+                        document.getElementById('lastMonthTarget2').value = data.lastMonthTarget2;
+                    }
+                    if (data.lastMonthActual2 !== undefined) {
+                        document.getElementById('lastMonthActual2').value = data.lastMonthActual2;
+                    }
+                    if (data.evaluation2 !== undefined) {
+                        document.getElementById('evaluation2').value = data.evaluation2;
+                    }
+                    
+                    if (data.lastMonthTarget3 !== undefined) {
+                        document.getElementById('lastMonthTarget3').value = data.lastMonthTarget3;
+                    }
+                    if (data.lastMonthActual3 !== undefined) {
+                        document.getElementById('lastMonthActual3').value = data.lastMonthActual3;
+                    }
+                    if (data.evaluation3 !== undefined) {
+                        document.getElementById('evaluation3').value = data.evaluation3;
+                    }
+                    
+                    if (data.lastMonthGoal4 !== undefined) {
+                        document.getElementById('lastMonthGoal4').value = data.lastMonthGoal4;
+                    }
+                    if (data.lastMonthTarget4 !== undefined) {
+                        document.getElementById('lastMonthTarget4').value = data.lastMonthTarget4;
+                    }
+                    if (data.lastMonthActual4 !== undefined) {
+                        document.getElementById('lastMonthActual4').value = data.lastMonthActual4;
+                    }
+                    if (data.evaluation4 !== undefined) {
+                        document.getElementById('evaluation4').value = data.evaluation4;
+                    }
+                    
+                    ['achievementRate1', 'achievementRate2', 'achievementRate3', 'achievementRate4'].forEach(id => {
+                        const num = id.slice(-1);
+                        const target = extractNum(document.getElementById('lastMonthTarget' + num).value);
+                        const actual = extractNum(document.getElementById('lastMonthActual' + num).value);
+                        const rateInput = document.getElementById(id);
+                        const evalInput = document.getElementById('evaluation' + num);
+                        
+                        if (target > 0 && actual > 0) {
+                            const rate = Math.round((actual / target) * 100);
+                            rateInput.value = rate + '%';
+                            if (evalInput && !evalInput.value) {
+                                evalInput.value = getEvaluation(rate);
+                            }
+                        }
+                    });
+                }
+            } catch (err) {
+                console.error('월별 계획 불러오기 실패:', err);
+            }
+        }
+        
+        async function loadMonthData() {
             const ym = month.value;
             if (!ym) return;
             
             currMonth.textContent = ym.split('-')[1].replace(/^0/, '');
-            
             const prevYM = getPrevYM(ym);
             lastMonth.textContent = prevYM.split('-')[1].replace(/^0/, '');
             
             try {
-                // 캐시 확인
-                const cacheKey1 = `members_${prevYM}`;
-                const cacheKey2 = `actual_${prevYM}`;
+                const cacheKey1 = `members_${ym}`;
                 
                 let d1 = getFromCache(cacheKey1);
-                let d2 = getFromCache(cacheKey2);
                 
-                // 캐시에 없는 것만 병렬로 호출
-                const promises = [];
                 if (!d1) {
-                    promises.push(
-                        fetch(API_URL + '?type=getCurrentMembers&ym=' + prevYM)
-                            .then(r => r.json())
-                            .then(data => {
-                                d1 = data;
-                                setCache(cacheKey1, data);
-                            })
-                    );
-                }
-                if (!d2) {
-                    promises.push(
-                        fetch(API_URL + '?type=get&ym=' + prevYM)
-                            .then(r => r.json())
-                            .then(data => {
-                                d2 = data;
-                                setCache(cacheKey2, data);
-                            })
-                    );
+                    const response = await fetch(API_URL + '?type=getCurrentMembers&ym=' + ym);
+                    d1 = await response.json();
+                    setCache(cacheKey1, d1);
                 }
                 
-                if (promises.length > 0) {
-                    await Promise.all(promises);
+                if (d1 && d1.ok) {
+                    currMembers.textContent = formatComma(d1.cumulative || 0);
                 }
                 
-                if (d1 && d1.ok) currMembers.textContent = formatComma(d1.cumulative || 0);
+                await loadMonthlyPlan();
                 
-                if (d2 && d2.ok) {
-                    const actual = d2.actual || 0;
-                    lastActual.value = actual + '명';
-                    const target = extractNum(document.getElementById('lastMonthTarget1').value);
-                    if (target > 0 && actual > 0) {
-                        const rate = Math.round((actual / target) * 100);
-                        achRate.value = rate + '%';
-                        const evalInput = document.getElementById('evaluation1');
-                        if (evalInput) evalInput.value = getEvaluation(rate);
-                    } else {
-                        achRate.value = '-';
+                document.querySelectorAll('[data-sync]').forEach(inp => {
+                    const syncType = inp.dataset.sync;
+                    const value = extractNum(inp.value);
+                    const targetElem = document.getElementById(syncType + 'Target');
+                    if (targetElem && value > 0) {
+                        targetElem.textContent = value;
                     }
-                }
+                });
                 
-                // ensureMonth는 백그라운드에서 실행
-                fetch(API_URL + '?type=ensureMonth', {
-                    method: 'POST',
-                    body: JSON.stringify({ ym: prevYM })
-                }).catch(() => {});
             } catch (err) {
-                console.error('데이터 로드 실패:', err);
+                console.error('월별 데이터 로드 실패:', err);
             }
         }
-        
-        let saveTimer;
-        lastActual.addEventListener('input', () => {
-            const num = extractNum(lastActual.value);
-            const target = extractNum(document.getElementById('lastMonthTarget1').value);
-            
-            if (target > 0 && num > 0) {
-                const rate = Math.round((num / target) * 100);
-                achRate.value = rate + '%';
-                const evalInput = document.getElementById('evaluation1');
-                if (evalInput) evalInput.value = getEvaluation(rate);
-            } else {
-                achRate.value = '-';
-            }
-            
-            clearTimeout(saveTimer);
-            saveTimer = setTimeout(async () => {
-                const prevYM = getPrevYM(month.value);
-                await fetch(API_URL + '?type=set', {
-                    method: 'POST',
-                    body: JSON.stringify({ ym: prevYM, actual: num })
-                });
-                loadData();
-            }, 500);
-        });
-        
-        document.querySelectorAll('[data-sync]').forEach(inp => {
-            inp.addEventListener('input', () => {
-                const target = document.getElementById(inp.dataset.sync + 'Target');
-                if (target) target.textContent = extractNum(inp.value);
-            });
-        });
-        
-        month.addEventListener('change', () => {
-            loadData();
-            loadChartData();
-        });
         
         async function loadChartData() {
             const ym = month.value;
@@ -587,201 +732,199 @@
             try {
                 const [y, m] = ym.split('-').map(Number);
                 
-                let endY = y;
-                let endM = m - 1;
-                if (endM === 0) {
-                    endM = 12;
-                    endY--;
-                }
+                let endY = y, endM = m - 1;
+                if (endM === 0) { endM = 12; endY--; }
                 
-                let startY = endY;
-                let startM = endM - 5;
-                if (startM <= 0) {
-                    startM += 12;
-                    startY--;
-                }
+                let startY = endY, startM = endM - 5;
+                if (startM <= 0) { startM += 12; startY--; }
                 
-                let currentY = startY;
-                let currentM = startM;
-                
+                let currentY = startY, currentM = startM;
                 const monthLabels = [];
-                const fetchPromises = [];
+                const monthsToFetch = [];
                 
-                // 모든 API 호출을 한번에 준비
                 while (currentY < endY || (currentY === endY && currentM <= endM)) {
                     const targetYM = currentY + '-' + (currentM < 10 ? '0' + currentM : currentM);
                     monthLabels.push({ ym: targetYM, label: currentM + '월' });
                     
-                    const cacheKey = `chart_${targetYM}`;
-                    let cached = getFromCache(cacheKey);
-                    
-                    if (cached) {
-                        fetchPromises.push(Promise.resolve(cached));
-                    } else {
-                        // 병렬 호출
-                        fetchPromises.push(
-                            Promise.all([
-                                fetch(API_URL + '?type=getCurrentMembers&ym=' + targetYM).then(r => r.json()),
-                                fetch(API_URL + '?type=get&ym=' + targetYM).then(r => r.json())
-                            ]).then(result => {
-                                setCache(cacheKey, result);
-                                return result;
-                            }).catch(() => [{ ok: false }, { ok: false }])
-                        );
+                    if (!getFromCache(`chart_${targetYM}`)) {
+                        monthsToFetch.push(targetYM);
                     }
                     
                     currentM++;
-                    if (currentM > 12) {
-                        currentM = 1;
-                        currentY++;
+                    if (currentM > 12) { currentM = 1; currentY++; }
+                }
+                
+                if (monthsToFetch.length > 0) {
+                    const bulkUrl = API_URL + '?type=getBulk&months=' + monthsToFetch.join(',');
+                    const bulkResponse = await fetch(bulkUrl);
+                    const bulkData = await bulkResponse.json();
+                    
+                    if (bulkData.ok && bulkData.data) {
+                        monthsToFetch.forEach(targetYM => {
+                            const data = bulkData.data[targetYM];
+                            if (data) {
+                                const result = [
+                                    { ok: true, cumulative: data.cumulative },
+                                    { ok: true, actual: data.actual }
+                                ];
+                                setCache(`chart_${targetYM}`, result);
+                            }
+                        });
                     }
                 }
                 
-                // 모든 API를 동시에 호출
-                const results = await Promise.all(fetchPromises);
+                const months = [], totals = [], news = [];
                 
-                const months = [];
-                const totals = [];
-                const news = [];
-                
-                results.forEach((result, index) => {
-                    const [d1, d2] = result;
-                    const total = d1.ok && d1.cumulative ? d1.cumulative : 0;
-                    const newMember = d2.ok && d2.actual ? d2.actual : 0;
-                    
-                    if (total > 0 || newMember > 0) {
-                        months.push(monthLabels[index].label);
-                        totals.push(total);
-                        news.push(newMember);
+                monthLabels.forEach(({ ym, label }) => {
+                    const cached = getFromCache(`chart_${ym}`);
+                    if (cached) {
+                        const [d1, d2] = cached;
+                        const total = d1.ok && d1.cumulative ? d1.cumulative : 0;
+                        const newMember = d2.ok && d2.actual ? d2.actual : 0;
+                        
+                        if (total > 0 || newMember > 0) {
+                            months.push(label);
+                            totals.push(total);
+                            news.push(newMember);
+                        }
                     }
                 });
                 
                 if (months.length === 0) return;
                 
-                const totalCtx = document.getElementById('totalMembersChart');
-                if (totalChart) totalChart.destroy();
-                totalChart = new Chart(totalCtx, {
-                    type: 'line',
-                    data: {
-                        labels: months,
-                        datasets: [{
-                            label: '총회원수',
-                            data: totals,
-                            borderColor: '#667eea',
-                            backgroundColor: 'rgba(102, 126, 234, 0.08)',
-                            borderWidth: 3,
-                            tension: 0.4,
-                            fill: true,
-                            pointRadius: 5,
-                            pointHoverRadius: 7,
-                            pointBackgroundColor: '#fff',
-                            pointBorderColor: '#667eea',
-                            pointBorderWidth: 3,
-                            pointHoverBackgroundColor: '#667eea',
-                            pointHoverBorderColor: '#fff',
-                            pointHoverBorderWidth: 3
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        interaction: {
-                            intersect: false,
-                            mode: 'index'
-                        },
-                        plugins: {
-                            legend: { display: false },
-                            tooltip: { enabled: false },
-                            datalabels: {
-                                display: true,
-                                align: 'top',
-                                anchor: 'end',
-                                color: '#667eea',
-                                font: { size: 11, weight: 'bold' },
-                                formatter: function(value) {
-                                    return value.toLocaleString() + '명';
-                                }
-                            }
-                        },
-                        scales: {
-                            x: {
-                                grid: { display: true, color: 'rgba(0, 0, 0, 0.05)', drawBorder: false },
-                                ticks: { font: { size: 12 } }
-                            },
-                            y: {
-                                beginAtZero: true,
-                                grid: { display: true, color: 'rgba(0, 0, 0, 0.05)', drawBorder: false },
-                                ticks: {
-                                    font: { size: 12 },
-                                    stepSize: 500,
-                                    callback: function(value) { return value.toLocaleString(); }
-                                }
-                            }
-                        }
-                    }
-                });
-                
-                const newCtx = document.getElementById('newMembersChart');
-                if (newChart) newChart.destroy();
-                newChart = new Chart(newCtx, {
-                    type: 'bar',
-                    data: {
-                        labels: months,
-                        datasets: [{
-                            label: '신규회원',
-                            data: news,
-                            backgroundColor: [
-                                'rgba(255, 182, 193, 0.7)',
-                                'rgba(173, 216, 230, 0.7)',
-                                'rgba(221, 160, 221, 0.7)',
-                                'rgba(255, 218, 185, 0.7)',
-                                'rgba(176, 224, 230, 0.7)',
-                                'rgba(255, 250, 205, 0.7)'
-                            ],
-                            borderColor: [
-                                'rgba(255, 182, 193, 1)',
-                                'rgba(173, 216, 230, 1)',
-                                'rgba(221, 160, 221, 1)',
-                                'rgba(255, 218, 185, 1)',
-                                'rgba(176, 224, 230, 1)',
-                                'rgba(255, 250, 205, 1)'
-                            ],
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        interaction: { intersect: false, mode: 'index' },
-                        plugins: { legend: { display: false }, tooltip: { enabled: false } },
-                        scales: {
-                            x: {
-                                grid: { display: true, color: 'rgba(0, 0, 0, 0.05)', drawBorder: false },
-                                ticks: { font: { size: 12 } }
-                            },
-                            y: {
-                                beginAtZero: true,
-                                grid: { display: true, color: 'rgba(0, 0, 0, 0.05)', drawBorder: false },
-                                ticks: {
-                                    font: { size: 12 },
-                                    stepSize: 100,
-                                    callback: function(value) { return value; }
-                                }
-                            }
-                        }
-                    }
-                });
+                updateCharts(months, totals, news);
             } catch (err) {
-                console.error('차트 데이터 로드 실패:', err);
+                console.error('차트 로드 실패:', err);
             }
         }
         
-        loadData();
-        loadChartData();
+        function updateCharts(months, totals, news) {
+            const totalCtx = document.getElementById('totalMembersChart');
+            if (totalChart) totalChart.destroy();
+            
+            totalChart = new Chart(totalCtx, {
+                type: 'line',
+                data: {
+                    labels: months,
+                    datasets: [{
+                        label: '총회원수',
+                        data: totals,
+                        borderColor: '#667eea',
+                        backgroundColor: 'rgba(102, 126, 234, 0.08)',
+                        borderWidth: 3,
+                        tension: 0.4,
+                        fill: true,
+                        pointRadius: 5,
+                        pointBackgroundColor: '#fff',
+                        pointBorderColor: '#667eea',
+                        pointBorderWidth: 3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    aspectRatio: 2.5,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { enabled: false },
+                        datalabels: {
+                            display: true,
+                            align: 'top',
+                            anchor: 'end',
+                            color: '#667eea',
+                            font: { size: 11, weight: 'bold' },
+                            formatter: (v) => v.toLocaleString() + '명'
+                        }
+                    },
+                    scales: {
+                        x: { grid: { display: true, color: 'rgba(0, 0, 0, 0.05)' }, ticks: { font: { size: 12 } } },
+                        y: { beginAtZero: true, grid: { display: true, color: 'rgba(0, 0, 0, 0.05)' }, ticks: { font: { size: 12 }, stepSize: 500, callback: (v) => v.toLocaleString() } }
+                    }
+                }
+            });
+            
+            const newCtx = document.getElementById('newMembersChart');
+            if (newChart) newChart.destroy();
+            
+            newChart = new Chart(newCtx, {
+                type: 'bar',
+                data: {
+                    labels: months,
+                    datasets: [{
+                        label: '신규회원',
+                        data: news,
+                        backgroundColor: ['rgba(255, 182, 193, 0.7)', 'rgba(173, 216, 230, 0.7)', 'rgba(221, 160, 221, 0.7)', 'rgba(255, 218, 185, 0.7)', 'rgba(176, 224, 230, 0.7)', 'rgba(255, 250, 205, 0.7)'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    aspectRatio: 2.5,
+                    plugins: { 
+                        legend: { display: false }, 
+                        tooltip: { enabled: false },
+                        datalabels: {
+                            display: true,
+                            align: 'end',
+                            anchor: 'end',
+                            color: '#333',
+                            font: { size: 11, weight: 'bold' },
+                            formatter: (v) => v
+                        }
+                    },
+                    scales: {
+                        x: { grid: { display: true, color: 'rgba(0, 0, 0, 0.05)' }, ticks: { font: { size: 12 } } },
+                        y: { beginAtZero: true, grid: { display: true, color: 'rgba(0, 0, 0, 0.05)' }, ticks: { font: { size: 12 }, stepSize: 100 } }
+                    }
+                }
+            });
+        }
         
-        setInterval(() => {
-            if (document.visibilityState === 'visible') loadData();
-        }, 60000);
+        document.querySelectorAll('[data-sync]').forEach(inp => {
+            inp.addEventListener('input', () => {
+                const syncType = inp.dataset.sync;
+                const value = extractNum(inp.value);
+                const targetElem = document.getElementById(syncType + 'Target');
+                
+                if (targetElem) {
+                    targetElem.textContent = value;
+                }
+            });
+            
+            const syncType = inp.dataset.sync;
+            const value = extractNum(inp.value);
+            const targetElem = document.getElementById(syncType + 'Target');
+            if (targetElem && value > 0) {
+                targetElem.textContent = value;
+            }
+        });
+        
+        month.addEventListener('change', async () => {
+            await Promise.all([loadMonthData(), loadChartData()]);
+        });
+        
+        setInitialMonth();
+        (async function init() {
+            console.log('초기 로드 시작...');
+            const start = Date.now();
+            
+            await Promise.all([
+                loadMonthData(),
+                loadChartData(),
+                loadCommonData()
+            ]);
+            
+            console.log('로드 완료:', (Date.now() - start) + 'ms');
+        })();
+        
+        const autoRefreshInterval = setInterval(() => {
+            if (document.visibilityState === 'visible') {
+                const cacheKey = 'commonData';
+                dataCache.delete(cacheKey);
+                loadCommonData();
+            }
+        }, 120000);
     </script>
 </body>
 </html>
