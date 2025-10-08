@@ -25,9 +25,9 @@
         .stat-value { font-size: 26px; font-weight: bold; }
         .stat-unit { font-size: 14px; margin-left: 3px; }
         .charts-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
-        .chart-box { background: #fafafa; padding: 15px; border-radius: 8px; }
+        .chart-box { background: #fafafa; padding: 15px; border-radius: 8px; overflow: hidden; }
         .chart-title { font-size: 14px; font-weight: bold; color: #2c3e50; margin-bottom: 10px; text-align: center; }
-        .chart-wrapper { position: relative; width: 100%; }
+        .chart-wrapper { position: relative; width: 100%; min-height: 200px; }
         .section { margin-bottom: 25px; overflow-x: auto; }
         .section-title { background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%); color: white; padding: 12px 18px; font-size: 16px; font-weight: bold; border-radius: 8px 8px 0 0; }
         table { width: 100%; min-width: 800px; border-collapse: collapse; margin-bottom: 0; }
@@ -53,6 +53,7 @@
         @media (max-width: 768px) {
             .charts-container { grid-template-columns: 1fr; }
             .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .chart-wrapper { min-height: 180px; }
         }
         @media print {
             body { background: white; padding: 0; }
@@ -141,7 +142,7 @@
                     <tr>
                         <td class="input-cell">1. 신규회원 확보</td>
                         <td class="input-cell"><input id="lastMonthTarget1" type="text" value="50명" data-save-monthly="true"></td>
-                        <td class="input-cell"><input id="lastMonthActual1" type="text" placeholder="실적 입력" readonly style="background: #f0f0f0;"></td>
+                        <td class="input-cell"><input id="lastMonthActual1" type="text" placeholder="실적 입력" data-save-monthly="true"></td>
                         <td class="input-cell"><input id="achievementRate1" type="text" value="-" readonly style="text-align: center;"></td>
                         <td class="input-cell"><input id="evaluation1" type="text" placeholder="평가" data-save-monthly="true"></td>
                     </tr>
@@ -621,7 +622,7 @@
                 if (result.ok && result.data) {
                     const data = result.data;
                     
-                    if (data.lastMonthActual1 !== undefined) {
+                    if (data.lastMonthActual1 !== undefined && data.lastMonthActual1 !== '') {
                         document.getElementById('lastMonthActual1').value = data.lastMonthActual1;
                     }
                     
@@ -829,11 +830,11 @@
                         tooltip: { enabled: false },
                         datalabels: {
                             display: true,
-                            align: 'top',
-                            anchor: 'end',
+                            align: 'bottom',
+                            anchor: 'start',
                             color: '#667eea',
                             font: { size: 11, weight: 'bold' },
-                            formatter: (v) => v.toLocaleString() + '명'
+                            formatter: (v) => v.toLocaleString()
                         }
                     },
                     scales: {
@@ -866,8 +867,8 @@
                         tooltip: { enabled: false },
                         datalabels: {
                             display: true,
-                            align: 'end',
-                            anchor: 'end',
+                            align: 'center',
+                            anchor: 'center',
                             color: '#333',
                             font: { size: 11, weight: 'bold' },
                             formatter: (v) => v
